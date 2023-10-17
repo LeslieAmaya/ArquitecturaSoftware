@@ -94,6 +94,32 @@ namespace ContactoDB.Datos
                 return respuesta;
             }
         }
-        public bool Editar
+    public bool EditarContacto(ContactModel model)
+    {
+        //Creo una variable boolean
+        bool respuesta;
+        try
+        {
+            var conexion = new Conexion();
+            //utilizar using para establecer la cadena de conexion
+            using (var conexion1 = new SqlConnection(conexion.CadenaSql()))
+            {
+                conexion1.Open();
+                SqlCommand cmd = new SqlCommand("sp_EditarContacto", conexion1);
+                // Envío los parámetros al procedimiento almacenado
+                cmd.Parameters.AddWithValue("IdContacto", model.IdContacto);
+                cmd.Parameters.AddWithValue("Nombre", model.Nombre);
+                cmd.Parameters.AddWithValue("Telefono", model.Telefono);
+                cmd.Parameters.AddWithValue("Correo", model.Correo);
+                cmd.Parameters.AddWithValue("Clave", model.Clave);
+                // Ejecuto el procedimiento almacenado
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.ExecuteNonQuery();
+            }
+            // Si no ocurre un error, la variable respuesta será true
+            respuesta = true;
+               }
+        }
+    }
     }
 }
