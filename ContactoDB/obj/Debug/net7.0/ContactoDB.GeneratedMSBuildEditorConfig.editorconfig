@@ -16,6 +16,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\cisco01\source\repos\ContactoDB\ContactoDB
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/cisco01/source/repos/ContactoDB/ContactoDB/Views/Contacto/Guardar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFjdG9cR3VhcmRhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/cisco01/source/repos/ContactoDB/ContactoDB/Views/Contacto/Listar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFjdG9cTGlzdGFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
