@@ -14,11 +14,11 @@ namespace ContactoDB.Datos
             using (var conexion1 = new SqlConnection(conexion.CadenaSql()))
             {
                 conexion1.Open();
-                SqlCommand cmd = new SqlCommand("sp_ListarContacto",conexion1);
+                SqlCommand cmd = new SqlCommand("sp_ListarContacto", conexion1);
                 cmd.CommandType = CommandType.StoredProcedure; //Comando de procedimiento almacenado
                 using (var dr = cmd.ExecuteReader()) //Leer lo que se devolvió
                 {
-                    while(dr.Read())
+                    while (dr.Read())
                     {
                         lista.Add(new ContactoModel()
                         {
@@ -31,13 +31,13 @@ namespace ContactoDB.Datos
                     }
                 }
             }
-                return lista;
+            return lista;
         }
 
-        public ContactoModel ObtenerContacto (int IdContacto)
+        public ContactoModel ObtenerContacto(int IdContacto)
         {
             //Creo un objeto vacío
-            var oContacto = new ContactoModel();
+            ContactoModel contacto = new ContactoModel();
             var conexion = new Conexion();
             //utilizar using para establecer la cadena de conexion
             using (var conexion1 = new SqlConnection(conexion.CadenaSql()))
@@ -52,15 +52,15 @@ namespace ContactoDB.Datos
                     while (dr.Read())
                     {
                         //asigno los valores al objeto oContacto
-                        oContacto.IdContacto = Convert.ToInt32(dr["IdContacto"]);
-                        oContacto.Nombre = dr["Nombre"].ToString();
-                        oContacto.Telefono = dr["Telefono"].ToString();
-                        oContacto.Correo = dr["Correo"].ToString();
-                        oContacto.Clave = dr["Clave"].ToString();
+                        contacto.IdContacto = Convert.ToInt32(dr["IdContacto"]);
+                        contacto.Nombre = dr["Nombre"].ToString();
+                        contacto.Telefono = dr["Telefono"].ToString();
+                        contacto.Correo = dr["Correo"].ToString();
+                        contacto.Clave = dr["Clave"].ToString();
                     }
                 }
             }
-            return oContacto;
+            return contacto;
         }
 
         public bool GuardarContacto(ContactoModel model)
@@ -85,41 +85,71 @@ namespace ContactoDB.Datos
                     cmd.ExecuteNonQuery();
                 }
                 respuesta = true;
-                }
-                catch (Exception e)
-                {
-                    string error = e.Message;
-                    respuesta = false;
-                }
-                return respuesta;
             }
-        }
-    public bool EditarContacto(ContactModel model)
-    {
-        //Creo una variable boolean
-        bool respuesta;
-        try
-        {
-            var conexion = new Conexion();
-            //utilizar using para establecer la cadena de conexion
-            using (var conexion1 = new SqlConnection(conexion.CadenaSql()))
+            catch (Exception e)
             {
-                conexion1.Open();
-                SqlCommand cmd = new SqlCommand("sp_EditarContacto", conexion1);
-                // Envío los parámetros al procedimiento almacenado
-                cmd.Parameters.AddWithValue("IdContacto", model.IdContacto);
-                cmd.Parameters.AddWithValue("Nombre", model.Nombre);
-                cmd.Parameters.AddWithValue("Telefono", model.Telefono);
-                cmd.Parameters.AddWithValue("Correo", model.Correo);
-                cmd.Parameters.AddWithValue("Clave", model.Clave);
-                // Ejecuto el procedimiento almacenado
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.ExecuteNonQuery();
+                string error = e.Message;
+                respuesta = false;
             }
-            // Si no ocurre un error, la variable respuesta será true
-            respuesta = true;
-               }
+            return respuesta;
         }
-    }
+        public bool EditarContacto(ContactoModel model)
+        {
+            //Creo una variable boolean
+            bool respuesta;
+            try
+            {
+                var conexion = new Conexion();
+                //utilizar using para establecer la cadena de conexion
+                using (var conexion1 = new SqlConnection(conexion.CadenaSql()))
+                {
+                    conexion1.Open();
+                    SqlCommand cmd = new SqlCommand("sp_EditarContacto", conexion1);
+                    // Envío los parámetros al procedimiento almacenado
+                    cmd.Parameters.AddWithValue("IdContacto", model.IdContacto);
+                    cmd.Parameters.AddWithValue("Nombre", model.Nombre);
+                    cmd.Parameters.AddWithValue("Telefono", model.Telefono);
+                    cmd.Parameters.AddWithValue("Correo", model.Correo);
+                    cmd.Parameters.AddWithValue("Clave", model.Clave);
+                    // Ejecuto el procedimiento almacenado
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.ExecuteNonQuery();
+                }
+                // Si no ocurre un error, la variable respuesta será true
+                respuesta = true;
+            }
+            catch (Exception e)
+            {
+                // Si ocurre un error, la variable respuesta será false
+                respuesta = false;
+            }
+            // Devuelvo la variable respuesta
+            return respuesta;
+        }
+
+
+        public bool EliminarContacto(int IdContacto)
+        {
+            bool respuesta;
+            try
+            {
+                var conexion = new Conexion();
+                using (var conexion1 = new SqlConnection(conexion.CadenaSql()))
+                {
+                    conexion1.Open();
+                    SqlCommand cmd = new SqlCommand("sp_Eliminar", conexion1);
+                    cmd.Parameters.AddWithValue("IdContacto", IdContacto);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.ExecuteNonQuery();
+                }
+                respuesta = true;
+            }
+            catch (Exception e)
+            {
+                string error = e.Message;
+                respuesta = false;
+            }
+            return respuesta;
+        }
     }
 }
