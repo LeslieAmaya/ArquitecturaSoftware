@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ContactoDB.Datos;
 using ContactoDB.Models;
-
+using System.Security.Permissions;
 
 namespace ContactoDB.Controllers
 {
@@ -33,6 +33,25 @@ namespace ContactoDB.Controllers
                 return View();
             }
 
+        }
+        [HttpGet]
+        public IActionResult Editar(int IdContacto)
+        {
+            ContactoModel contacto = contactoDatos.ObtenerContacto(IdContacto);
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Editar(ContactoModel model)
+        {
+            var resultado = contactoDatos.EditarContacto(model);
+            if(resultado)
+            {
+                return RedirectToAction("Listar");
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }
