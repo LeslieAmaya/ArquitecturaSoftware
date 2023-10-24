@@ -21,6 +21,10 @@ namespace ContactoDB.Controllers
         [HttpPost]
         public IActionResult Guardar(ContactoModel model)
         {
+            if(!ModelState.IsValid)
+            {
+                return View();
+            }
             var respuesta = contactoDatos.GuardarContacto(model);
             if (respuesta) 
                 return RedirectToAction("Listar"); //vista a la que queremos reenviar

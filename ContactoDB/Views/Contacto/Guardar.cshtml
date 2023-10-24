@@ -1,4 +1,4 @@
-﻿
+﻿@model ContactoDB.Models.ContactoModel;
 @{
     ViewData["Title"] = "Guardar";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,27 +10,31 @@
         Crear Contacto
     </div>
     <div class="card-body">
-        <form> @*FORMULARIO*@
+        <form asp-action="Guardar" asp-controller="Contacto" method="post"> @*FORMULARIO*@
             <div class="col-md-4 mb-3">
                 <label for="Nombre"> Nombre </label>
-                <input type="text" class="form-control"/>
+                <input type="text" class="form-control" asp-for="Nombre"/>
+                <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="Telefono"> Teléfono </label>
-                <input type="text" class="form-control" />
+                <input type="text" class="form-control" asp-for="Telefono"/>
+                <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="Correo"> Correo </label>
-                <input type="text" class="form-control"/>
+                <input type="text" class="form-control" asp-for="Correo"/>
             </div>
             <div class="col-md-4 mb-3">
-                <label for="Clave"> Clave </label>
-                <input type="text" class="form-control" />
+                <label for="Clave" > Clave </label>
+                <input type="text" class="form-control" asp-for="Clave"/>
+                <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
             <div class="col-md-4 mb-3">
                 <button type="submit" class="btn btn-primary mb-3">
                     Guardar
                 </button>
+                <a asp-controller="Contacto" asp-action="Listar">Volver a la lista</a>
             </div>
         </form>
     </div>
