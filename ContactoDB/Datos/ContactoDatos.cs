@@ -128,7 +128,7 @@ namespace ContactoDB.Datos
         }
 
 
-        public bool EliminarContacto(int IdContacto)
+        public bool EliminarContacto(ContactoModel model)
         {
             bool respuesta;
             try
@@ -138,7 +138,7 @@ namespace ContactoDB.Datos
                 {
                     conexion1.Open();
                     SqlCommand cmd = new SqlCommand("sp_Eliminar", conexion1);
-                    cmd.Parameters.AddWithValue("IdContacto", IdContacto);
+                    cmd.Parameters.AddWithValue("IdContacto", model.IdContacto);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }

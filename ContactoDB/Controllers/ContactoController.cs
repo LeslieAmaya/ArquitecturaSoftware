@@ -38,7 +38,7 @@ namespace ContactoDB.Controllers
         public IActionResult Editar(int IdContacto)
         {
             ContactoModel contacto = contactoDatos.ObtenerContacto(IdContacto);
-            return View();
+            return View(contacto);
         }
         [HttpPost]
         public IActionResult Editar(ContactoModel model)
@@ -53,5 +53,25 @@ namespace ContactoDB.Controllers
                 return View();
             }
         }
-    }
+        [HttpGet]
+		public IActionResult Eliminar(int id)
+		{
+			var contacto = contactoDatos.ObtenerContacto(id);
+            return View(contacto);
+		}
+        [HttpPost]
+        public IActionResult Eliminar(ContactoModel model)
+        {
+            var respuesta = contactoDatos.EliminarContacto(model);
+            if(respuesta)
+            {
+                return RedirectToAction("Listar");
+            }
+            else
+            {
+                return View();
+            }
+
+        }
+	}
 }
