@@ -8,7 +8,7 @@
         <h1>Listar Contactos</h1>
     </div>
     <div class="card-body">
-        <a asp-action="Guardar" asp-controller="Contacto" class="btn btn-success"><i class="bi bi-file-earmark-plus"> </i>Crea Nuevo Contacto </a>
+        <a asp-action="Guardar" asp-controller="Contacto" class="btn btn-success"><i class="bi bi-file-earmark-plus"> </i> Crea Nuevo Contacto </a>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -28,8 +28,8 @@
                         <td>@item.Correo</td>
                         <td>@item.Clave</td>
                         <td>
-							<a asp-action="Editar" asp-controller="Contacto" asp-route-idContacto="@item.IdContacto" class="btn btn-warning btn-sm">Editar</a>
-							<a asp-action="Eliminar" asp-controller="Contacto" asp-route-idContacto="@item.IdContacto" class="btn btn-danger btn-sm">Eliminar</a>
+                            <a asp-action="Editar" asp-controller="Contacto" asp-route-idContacto="@item.IdContacto" class="btn btn-warning btn-sm"><i class="bi bi-pencil"> </i>Editar</a>
+                            <a asp-action="Eliminar" asp-controller="Contacto" asp-route-idContacto="@item.IdContacto" class="btn btn-danger btn-sm"><i class="bi bi-trash"> </i>Eliminar</a>
                         </td>
                     </tr>
                 }
